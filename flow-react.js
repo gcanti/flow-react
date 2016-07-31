@@ -15,12 +15,12 @@ declare module 'flow-react' {
 
   */
 
-  declare type Element<C, Config = any> = React$Element<Config> & { __flow_react_type: C }; // <= hack
+  declare type Element<T, Config = any> = React$Element<Config> & { __flow_react_type: T }; // <= hack
 
   declare class Component<P: Object = {}, C = void, S = void, D = void> {
     static defaultProps: $Abstract<D>;
     props: P & { children: C };
-    state: S; // $Abstract is useless here since doesn't enforce the `this.state = something` definition
+    state: S;
 
     render(): ?Element<any>;
     setState(partialState: $Shape<S>, callback?: () => void): void;
@@ -32,7 +32,7 @@ declare module 'flow-react' {
 
   declare type EmptyTags = 'hr' | 'input'; // etc...
 
-  declare type NonEmptyTags = 'div' | 'a'; // etc...
+  declare type NonEmptyTags = 'div' | 'a' | 'button'; // etc...
 
   declare function h<T: EmptyTags>(
     type: T,
@@ -50,7 +50,7 @@ declare module 'flow-react' {
   declare function h<P, C, S, D, T: Component<P, C, S, D>>(
     type: Class<T>,
     props: $Diff<P, D> & {}, // <= prevent null otherwise $Diff seems to throw away type checking
-    children?: C,
+    children: C,
     ...rest: Array<void> // enforce no more arguments
   ): Element<T>;
 

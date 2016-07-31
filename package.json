@@ -5,7 +5,7 @@
   "main": "index.js",
   "files": [
     "index.js",
-    "index.js.flow"
+    "flow-react.js"
   ],
   "scripts": {
   },

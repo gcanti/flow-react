@@ -6,7 +6,41 @@ Advanced type checking for react using Flow
 npm install flow-react --save
 ```
 
+# API
+
+## Component (class)
+
+`Component<P: Object = {}, C = void, S = void, D = void>`
+
+where
+
+- `P` = Props
+- `C` = Children
+- `S` = State
+- `D` = DefaultProps
+
+## h
+
+```js
+type EmptyTags = 'hr' | 'input'; // etc...
+type NonEmptyTags = 'div' | 'a' | 'button'; // etc...
+
+h<T: EmptyTags>(type: T, props?: Object): Element<T>
+h<T: NonEmptyTags>(type: T, props?: Object | null, children?: any): Element<T>
+h<P, C, S, D, T: Component<P, C, S, D>>(type: Class<T>, props: Object, children: C): Element<T>
+```
+
+## Element (type)
+
+`Element<T>`
+
+where
+
+- `T` = string | your react component
+
 # Usage
+
+**Note**. Add `./node_modules/flow-react/flow-react.js` to your libdefs.
 
 ```js
 import { h, Component } from 'flow-react'
@@ -14,7 +48,7 @@ import type { Element } from 'flow-react'
 import ReactDOM from 'react-dom'
 
 // default for props = {}
-export class C1 extends Component<{}, void, void, void> {}
+export class C1 extends Component {}
 h(C1, {})
 // h(C1, {}, 'hello') // error
 // h(C1) // error
@@ -84,7 +118,7 @@ export class C10 extends Component<{ a: number }, void, { a: number }> {
 }
 
 // HOC
-function hoc<P1: Object, P2: Object>(c: Class<Component<P1, *, *, *>>, f: (_: P2) => P1): Class<Component<P2>> {
+function hoc<P1: Object, P2: Object>(c: Class<Component<P1, *, *>>, f: (_: P2) => P1): Class<Component<P2>> {
   return class C extends Component<P2> {
     render() {
       return h(c, f(this.props))
@@ -104,17 +138,11 @@ const C12 = hoc(C11, fn)
 h(C12, { b: 'hello' })
 
 // real world example
-type DefaultProps = {
-  type: string
-};
-
 type Props = {
   type: string
 };
 
-type Children = string;
-
-export default class Alert extends Component<Props, Children, void, DefaultProps> {
+export default class Alert extends Component<Props, string, void, Props> {
 
   static defaultProps = {
     type: 'info'
