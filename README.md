@@ -118,7 +118,7 @@ export class C10 extends Component<{ a: number }, void, { a: number }> {
 }
 
 // HOC
-function hoc<P1: Object, P2: Object>(c: Class<Component<P1, *, *>>, f: (_: P2) => P1): Class<Component<P2>> {
+function hoc<P1: Object, P2: Object>(c: Class<Component<P1, *, *, *>>, f: (_: P2) => P1): Class<Component<P2>> {
   return class C extends Component<P2> {
     render() {
       return h(c, f(this.props))
