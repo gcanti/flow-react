@@ -6,5 +6,6 @@ function h(type, props, children) {
 
 module.exports = {
   Component: React.Component,
+  PureComponent: React.PureComponent,
   h: h
 };

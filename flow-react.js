@@ -1,34 +1,14 @@
 declare module 'flow-react' {
 
-  /*
-
-    Advanced type checking for react using Flow
-
-    Type legend:
-
-    P = Props
-    C = Children
-    S = State
-    D = DefaultProps
-
-    Note. The syntax "Type = void" means applying a default
-
-  */
-
   declare type Element<T, Config = any> = React$Element<Config> & { __flow_react_type: T }; // <= hack
 
-  declare class Component<P: Object = {}, C = void, S = void, D = void> {
+  declare class Component<P: Object = {}, C = void, S = void, D = void> extends React$Component<D, P, S> {
     static defaultProps: $Abstract<D>;
     props: P & { children: C };
     state: S;
-
-    render(): ?Element<any>;
-    setState(partialState: $Shape<S>, callback?: () => void): void;
-    componentWillMount(): void;
-    // ...other methods here...
   }
 
-  // list of overloadings of h()
+  declare class PureComponent<P: Object = {}, C = void, D = void> extends Component<P, C, D, void> {}
 
   declare type EmptyTags = 'hr' | 'input'; // etc...
 
