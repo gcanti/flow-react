@@ -8,8 +8,8 @@ declare module 'flow-react' {
 
     class A extends Component<$Strict<{ a: number }>> {}
 
-    h(A, { a: 1 })       // ok
-    h(A, { a: 1, b: 2 }) // error
+    v(A, { a: 1 })       // ok
+    v(A, { a: 1, b: 2 }) // error
 
   */
   declare type $Strict<T> = T & $Shape<T>;
@@ -19,7 +19,7 @@ declare module 'flow-react' {
     Refinement of React$Element in order to retain the type of the vdom builder
 
   */
-  declare type Element<Builder, Config = any> =
+  declare type Vdom<Builder, Config = any> =
     & React$Element<Config>
     & { __flow_react_type: Builder }
     ;
@@ -174,151 +174,151 @@ declare module 'flow-react' {
     | 'tspan'
     ;
 
-  declare function h<Builder: Tags>(
+  declare function v<Builder: Tags>(
     type: Builder,
     props?: Object | null,
     children?: any,
     ...rest: Array<void> // enforce no more arguments
-  ): Element<Builder>;
+  ): Vdom<Builder>;
 
-  declare function h<Props, Children, State, DefaultProps, Builder: Component<Props, Children, State, DefaultProps>>(
+  declare function v<Props, Children, State, DefaultProps, Builder: Component<Props, Children, State, DefaultProps>>(
     type: Class<Builder>,
     props: $Diff<Props, DefaultProps> & {}, // <= prevent null otherwise $Diff will throw away type checking
     children: Children,
     ...rest: Array<void> // enforce no more arguments
-  ): Element<Builder>;
+  ): Vdom<Builder>;
 
-  declare type A = Element<'a'>;
-  declare type Abbr = Element<'abbr'>;
-  declare type Address = Element<'address'>;
-  declare type Area = Element<'area'>;
-  declare type Article = Element<'article'>;
-  declare type Aside = Element<'aside'>;
-  declare type Audio = Element<'audio'>;
-  declare type B = Element<'b'>;
-  declare type Base = Element<'base'>;
-  declare type Bdi = Element<'bdi'>;
-  declare type Bdo = Element<'bdo'>;
-  declare type Big = Element<'big'>;
-  declare type Blockquote = Element<'blockquote'>;
-  declare type Body = Element<'body'>;
-  declare type Br = Element<'br'>;
-  declare type Button = Element<'button'>;
-  declare type Canvas = Element<'canvas'>;
-  declare type Caption = Element<'caption'>;
-  declare type Cite = Element<'cite'>;
-  declare type Code = Element<'code'>;
-  declare type Col = Element<'col'>;
-  declare type Colgroup = Element<'colgroup'>;
-  declare type Data = Element<'data'>;
-  declare type Datalist = Element<'datalist'>;
-  declare type Dd = Element<'dd'>;
-  declare type Del = Element<'del'>;
-  declare type Details = Element<'details'>;
-  declare type Dfn = Element<'dfn'>;
-  declare type Dialog = Element<'dialog'>;
-  declare type Div = Element<'div'>;
-  declare type Dl = Element<'dl'>;
-  declare type Dt = Element<'dt'>;
-  declare type Em = Element<'em'>;
-  declare type Embed = Element<'embed'>;
-  declare type Fieldset = Element<'fieldset'>;
-  declare type Figcaption = Element<'figcaption'>;
-  declare type Figure = Element<'figure'>;
-  declare type Footer = Element<'footer'>;
-  declare type Form = Element<'form'>;
-  declare type H1 = Element<'h1'>;
-  declare type H2 = Element<'h2'>;
-  declare type H3 = Element<'h3'>;
-  declare type H4 = Element<'h4'>;
-  declare type H5 = Element<'h5'>;
-  declare type H6 = Element<'h6'>;
-  declare type Head = Element<'head'>;
-  declare type Header = Element<'header'>;
-  declare type Hgroup = Element<'hgroup'>;
-  declare type Hr = Element<'hr'>;
-  declare type Html = Element<'html'>;
-  declare type I = Element<'i'>;
-  declare type Iframe = Element<'iframe'>;
-  declare type Img = Element<'img'>;
-  declare type Input = Element<'input'>;
-  declare type Ins = Element<'ins'>;
-  declare type Kbd = Element<'kbd'>;
-  declare type Keygen = Element<'keygen'>;
-  declare type Label = Element<'label'>;
-  declare type Legend = Element<'legend'>;
-  declare type Li = Element<'li'>;
-  declare type Link = Element<'link'>;
-  declare type Main = Element<'main'>;
-  declare type Map = Element<'map'>;
-  declare type Mark = Element<'mark'>;
-  declare type Menu = Element<'menu'>;
-  declare type Menuitem = Element<'menuitem'>;
-  declare type Meta = Element<'meta'>;
-  declare type Meter = Element<'meter'>;
-  declare type Nav = Element<'nav'>;
-  declare type Noscript = Element<'noscript'>;
-  declare type Object = Element<'object'>;
-  declare type Ol = Element<'ol'>;
-  declare type Optgroup = Element<'optgroup'>;
-  declare type Option = Element<'option'>;
-  declare type Output = Element<'output'>;
-  declare type P = Element<'p'>;
-  declare type Param = Element<'param'>;
-  declare type Picture = Element<'picture'>;
-  declare type Pre = Element<'pre'>;
-  declare type Progress = Element<'progress'>;
-  declare type Q = Element<'q'>;
-  declare type Rp = Element<'rp'>;
-  declare type Rt = Element<'rt'>;
-  declare type Ruby = Element<'ruby'>;
-  declare type S = Element<'s'>;
-  declare type Samp = Element<'samp'>;
-  declare type Script = Element<'script'>;
-  declare type Section = Element<'section'>;
-  declare type Select = Element<'select'>;
-  declare type Small = Element<'small'>;
-  declare type Source = Element<'source'>;
-  declare type Span = Element<'span'>;
-  declare type Strong = Element<'strong'>;
-  declare type Style = Element<'style'>;
-  declare type Sub = Element<'sub'>;
-  declare type Summary = Element<'summary'>;
-  declare type Sup = Element<'sup'>;
-  declare type Table = Element<'table'>;
-  declare type Tbody = Element<'tbody'>;
-  declare type Td = Element<'td'>;
-  declare type Textarea = Element<'textarea'>;
-  declare type Tfoot = Element<'tfoot'>;
-  declare type Th = Element<'th'>;
-  declare type Thead = Element<'thead'>;
-  declare type Time = Element<'time'>;
-  declare type Title = Element<'title'>;
-  declare type Tr = Element<'tr'>;
-  declare type Track = Element<'track'>;
-  declare type U = Element<'u'>;
-  declare type Ul = Element<'ul'>;
-  declare type Var = Element<'var'>;
-  declare type Video = Element<'video'>;
-  declare type Wbr = Element<'wbr'>;
-  declare type Circle = Element<'circle'>;
-  declare type ClipPath = Element<'clipPath'>;
-  declare type Defs = Element<'defs'>;
-  declare type Ellipse = Element<'ellipse'>;
-  declare type G = Element<'g'>;
-  declare type Image = Element<'image'>;
-  declare type Line = Element<'line'>;
-  declare type LinearGradient = Element<'linearGradient'>;
-  declare type Mask = Element<'mask'>;
-  declare type Path = Element<'path'>;
-  declare type Pattern = Element<'pattern'>;
-  declare type Polygon = Element<'polygon'>;
-  declare type Polyline = Element<'polyline'>;
-  declare type RadialGradient = Element<'radialGradient'>;
-  declare type Rect = Element<'rect'>;
-  declare type Stop = Element<'stop'>;
-  declare type Svg = Element<'svg'>;
-  declare type Text = Element<'text'>;
-  declare type Tspan = Element<'tspan'>;
+  declare type A = Vdom<'a'>;
+  declare type Abbr = Vdom<'abbr'>;
+  declare type Address = Vdom<'address'>;
+  declare type Area = Vdom<'area'>;
+  declare type Article = Vdom<'article'>;
+  declare type Aside = Vdom<'aside'>;
+  declare type Audio = Vdom<'audio'>;
+  declare type B = Vdom<'b'>;
+  declare type Base = Vdom<'base'>;
+  declare type Bdi = Vdom<'bdi'>;
+  declare type Bdo = Vdom<'bdo'>;
+  declare type Big = Vdom<'big'>;
+  declare type Blockquote = Vdom<'blockquote'>;
+  declare type Body = Vdom<'body'>;
+  declare type Br = Vdom<'br'>;
+  declare type Button = Vdom<'button'>;
+  declare type Canvas = Vdom<'canvas'>;
+  declare type Caption = Vdom<'caption'>;
+  declare type Cite = Vdom<'cite'>;
+  declare type Code = Vdom<'code'>;
+  declare type Col = Vdom<'col'>;
+  declare type Colgroup = Vdom<'colgroup'>;
+  declare type Data = Vdom<'data'>;
+  declare type Datalist = Vdom<'datalist'>;
+  declare type Dd = Vdom<'dd'>;
+  declare type Del = Vdom<'del'>;
+  declare type Details = Vdom<'details'>;
+  declare type Dfn = Vdom<'dfn'>;
+  declare type Dialog = Vdom<'dialog'>;
+  declare type Div = Vdom<'div'>;
+  declare type Dl = Vdom<'dl'>;
+  declare type Dt = Vdom<'dt'>;
+  declare type Em = Vdom<'em'>;
+  declare type Embed = Vdom<'embed'>;
+  declare type Fieldset = Vdom<'fieldset'>;
+  declare type Figcaption = Vdom<'figcaption'>;
+  declare type Figure = Vdom<'figure'>;
+  declare type Footer = Vdom<'footer'>;
+  declare type Form = Vdom<'form'>;
+  declare type H1 = Vdom<'h1'>;
+  declare type H2 = Vdom<'h2'>;
+  declare type H3 = Vdom<'h3'>;
+  declare type H4 = Vdom<'h4'>;
+  declare type H5 = Vdom<'h5'>;
+  declare type H6 = Vdom<'h6'>;
+  declare type Head = Vdom<'head'>;
+  declare type Header = Vdom<'header'>;
+  declare type Hgroup = Vdom<'hgroup'>;
+  declare type Hr = Vdom<'hr'>;
+  declare type Html = Vdom<'html'>;
+  declare type I = Vdom<'i'>;
+  declare type Iframe = Vdom<'iframe'>;
+  declare type Img = Vdom<'img'>;
+  declare type Input = Vdom<'input'>;
+  declare type Ins = Vdom<'ins'>;
+  declare type Kbd = Vdom<'kbd'>;
+  declare type Keygen = Vdom<'keygen'>;
+  declare type Label = Vdom<'label'>;
+  declare type Legend = Vdom<'legend'>;
+  declare type Li = Vdom<'li'>;
+  declare type Link = Vdom<'link'>;
+  declare type Main = Vdom<'main'>;
+  declare type Map = Vdom<'map'>;
+  declare type Mark = Vdom<'mark'>;
+  declare type Menu = Vdom<'menu'>;
+  declare type Menuitem = Vdom<'menuitem'>;
+  declare type Meta = Vdom<'meta'>;
+  declare type Meter = Vdom<'meter'>;
+  declare type Nav = Vdom<'nav'>;
+  declare type Noscript = Vdom<'noscript'>;
+  declare type Object = Vdom<'object'>;
+  declare type Ol = Vdom<'ol'>;
+  declare type Optgroup = Vdom<'optgroup'>;
+  declare type Option = Vdom<'option'>;
+  declare type Output = Vdom<'output'>;
+  declare type P = Vdom<'p'>;
+  declare type Param = Vdom<'param'>;
+  declare type Picture = Vdom<'picture'>;
+  declare type Pre = Vdom<'pre'>;
+  declare type Progress = Vdom<'progress'>;
+  declare type Q = Vdom<'q'>;
+  declare type Rp = Vdom<'rp'>;
+  declare type Rt = Vdom<'rt'>;
+  declare type Ruby = Vdom<'ruby'>;
+  declare type S = Vdom<'s'>;
+  declare type Samp = Vdom<'samp'>;
+  declare type Script = Vdom<'script'>;
+  declare type Section = Vdom<'section'>;
+  declare type Select = Vdom<'select'>;
+  declare type Small = Vdom<'small'>;
+  declare type Source = Vdom<'source'>;
+  declare type Span = Vdom<'span'>;
+  declare type Strong = Vdom<'strong'>;
+  declare type Style = Vdom<'style'>;
+  declare type Sub = Vdom<'sub'>;
+  declare type Summary = Vdom<'summary'>;
+  declare type Sup = Vdom<'sup'>;
+  declare type Table = Vdom<'table'>;
+  declare type Tbody = Vdom<'tbody'>;
+  declare type Td = Vdom<'td'>;
+  declare type Textarea = Vdom<'textarea'>;
+  declare type Tfoot = Vdom<'tfoot'>;
+  declare type Th = Vdom<'th'>;
+  declare type Thead = Vdom<'thead'>;
+  declare type Time = Vdom<'time'>;
+  declare type Title = Vdom<'title'>;
+  declare type Tr = Vdom<'tr'>;
+  declare type Track = Vdom<'track'>;
+  declare type U = Vdom<'u'>;
+  declare type Ul = Vdom<'ul'>;
+  declare type Var = Vdom<'var'>;
+  declare type Video = Vdom<'video'>;
+  declare type Wbr = Vdom<'wbr'>;
+  declare type Circle = Vdom<'circle'>;
+  declare type ClipPath = Vdom<'clipPath'>;
+  declare type Defs = Vdom<'defs'>;
+  declare type Ellipse = Vdom<'ellipse'>;
+  declare type G = Vdom<'g'>;
+  declare type Image = Vdom<'image'>;
+  declare type Line = Vdom<'line'>;
+  declare type LinearGradient = Vdom<'linearGradient'>;
+  declare type Mask = Vdom<'mask'>;
+  declare type Path = Vdom<'path'>;
+  declare type Pattern = Vdom<'pattern'>;
+  declare type Polygon = Vdom<'polygon'>;
+  declare type Polyline = Vdom<'polyline'>;
+  declare type RadialGradient = Vdom<'radialGradient'>;
+  declare type Rect = Vdom<'rect'>;
+  declare type Stop = Vdom<'stop'>;
+  declare type Svg = Vdom<'svg'>;
+  declare type Text = Vdom<'text'>;
+  declare type Tspan = Vdom<'tspan'>;
 
 }
