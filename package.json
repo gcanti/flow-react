@@ -1,6 +1,6 @@
 {
   "name": "flow-react",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Advanced type checking for react using Flow",
   "main": "index.js",
   "files": [
