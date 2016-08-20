@@ -181,8 +181,17 @@ declare module 'flow-react' {
     ...rest: Array<void> // enforce no more arguments
   ): Vdom<Builder>;
 
+  declare type FunctionComponent<Props> = (props: Props) => ?React$Element<any>;
+
+  declare function v<Props, Builder: FunctionComponent<Props>>(
+    type: Builder,
+    props: Props,
+    children?: any,
+    ...rest: Array<void> // enforce no more arguments
+  ): Vdom<Builder>;
+
   declare function v<Props, Children, State, DefaultProps, Builder: Component<Props, Children, State, DefaultProps>>(
-    type: Class<Builder>,
+    type: Class<Builder> & Class<Component<*, *, *, *>>,
     props: $Diff<Props, DefaultProps> & {}, // <= prevent null otherwise $Diff will throw away type checking
     children: Children,
     ...rest: Array<void> // enforce no more arguments
